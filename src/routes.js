@@ -7,6 +7,7 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import RepositoryPage from "./pages/AdminPage/repository/RepositoryPage";
 import AdminHomePage from "./pages/AdminPage/AdminHomePage";
+import CategoryList from "./components/Admin/category/CategoryList";
 
 const routes = [
   {
@@ -51,6 +52,16 @@ const routesAdmin = [
     path: "/admin",
     exact: true,
     main: () => <AdminHomePage />,
+  },
+  {
+    path: "/admin/category",
+    exact: false,
+    main: () => <CategoryList/>,
+  },
+  {
+    path: "/admin/category",
+    exact: false,
+    main: () => <CategoryList/>,
   },
   {
     path: "/admin/:something",

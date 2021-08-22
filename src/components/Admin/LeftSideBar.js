@@ -27,9 +27,7 @@ class LeftSideBar extends Component {
                 <div id="category" className="collapse">
                   <ul className="nav">
                     <li>
-                      <a href="/#" className="">
-                        Mục 1
-                      </a>
+                      <Link to="/admin/category">Danh sách danh mục</Link>
                     </li>
                     <li>
                       <a href="/#" className="">
