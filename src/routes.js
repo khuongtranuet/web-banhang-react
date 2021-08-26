@@ -5,8 +5,13 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/LoginPage/RegisterPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
-import RepositoryPage from "./pages/AdminPage/repository/RepositoryPage";
 import AdminHomePage from "./pages/AdminPage/AdminHomePage";
+
+import RepositoryPage from "./pages/AdminPage/repository/RepositoryPage";
+import RepositoryAddPage from "./pages/AdminPage/repository/RepositoryAddPage";
+
+import CustomerPage from "./pages/AdminPage/customer/CustomerPage";
+import CustomerAddPage from "./pages/AdminPage/customer/CustomerAddPage";
 
 const routes = [
   {
@@ -43,9 +48,24 @@ const routes = [
 
 const routesAdmin = [
   {
+    path: "/admin/repository/add",
+    exact: true,
+    main: () => <RepositoryAddPage />,
+  },
+  {
     path: "/admin/repository",
     exact: false,
     main: () => <RepositoryPage />,
+  },
+  {
+    path: "/admin/customer/add",
+    exact: true,
+    main: () => <CustomerAddPage />,
+  },
+  {
+    path: "/admin/customer",
+    exact: false,
+    main: () => <CustomerPage />,
   },
   {
     path: "/admin",

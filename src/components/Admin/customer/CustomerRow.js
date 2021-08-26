@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class RepositoryRow extends Component {
+class CustomerRow extends Component {
   onDelete = (id) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa ?")) {
       this.props.onDelete(id);
@@ -8,14 +8,30 @@ class RepositoryRow extends Component {
   };
 
   render() {
-    const repository = this.props.repository;
+    const customer = this.props.customer;
+    var typeCustomer = "";
+    var statusCustomer = "";
+    if (customer.type === "1") {
+      typeCustomer = "Người dùng hệ thống";
+    } else {
+      typeCustomer = "Khách vãng lai";
+    }
 
+    if (customer.status === "0") {
+      statusCustomer = "Chưa kích hoạt";
+    } else if (customer.status === "1") {
+      statusCustomer = "Kích hoạt";
+    } else {
+      statusCustomer = "Tạm khóa";
+    }
     return (
       <tr>
         <td className="text-center">{this.props.id + 1}</td>
-        <td>{repository.name}</td>
-        <td>{repository.mobile}</td>
-        <td>{repository.address + ", " + repository.full_location}</td>
+        <td>{customer.fullname}</td>
+        <td>{customer.email}</td>
+        <td>{customer.mobile}</td>
+        <td>{typeCustomer}</td>
+        <td>{statusCustomer}</td>
         <td className="text-center " style={{ width: "110px" }}>
           <a href="/#" title="Nhấn để xem chi tiết">
             <i className="fa fa-eye" />
@@ -30,7 +46,7 @@ class RepositoryRow extends Component {
             title="Nhấn để xóa"
             style={{ color: "red" }}
             onClick={() => {
-              this.onDelete(repository.id);
+              this.onDelete(customer.id);
             }}
           >
             <i className="fa fa-trash" />
@@ -42,4 +58,4 @@ class RepositoryRow extends Component {
   }
 }
 
-export default RepositoryRow;
+export default CustomerRow;

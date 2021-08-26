@@ -2,42 +2,42 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Search from "../Search";
 import ReponsitoryTable from "./ReponsitoryTable";
+import CallAPI from "../../../utils/CallAPI";
+import Pagination from "../../Pagination";
 
 class Repository extends Component {
   constructor(props) {
     super(props);
     this.state = {
       searchKeyword: "",
+      repositories: [],
+      pageOfItems: [],
     };
+    this.onChangePage = this.onChangePage.bind(this);
+  }
+  onChangePage(pageOfItems) {
+    // update state with new page of items
+    this.setState({ pageOfItems: pageOfItems });
+  }
+  componentDidMount() {
+    CallAPI("repository/list_repository", "GET", null, null).then((res) => {
+      console.log(res);
+      if (typeof res != "undefined") {
+        this.setState({
+          repositories: res.data,
+        });
+      }
+    });
   }
 
   handleSearchChange = (searchKeyword) => {
-    // console.log(searchKeyword);
+    console.log(searchKeyword);
     this.setState({
       searchKeyword: searchKeyword,
     });
   };
 
-  //   handleSearchChange(searchKeyword) {
-  //     this.setState({
-  //       searchKeyword: searchKeyword,
-  //     });
-  //   }
   render() {
-    const repositories = [
-      {
-        name: "Kho hàng Mỹ Đình",
-        mobile: "0223568741",
-        address:
-          "50 Đường Mỹ Đình, Phường Mỹ Đình 2, Quận Nam Từ Liêm, Thành phố Hà Nội",
-      },
-      {
-        name: "Kho hàng Cầu Giấy",
-        mobile: "0223846514",
-        address:
-          "100 Đường Quan Hoa, Phường Quan Hoa, Quận Cầu Giấy, Thành phố Hà Nội",
-      },
-    ];
     return (
       <div>
         <h3 className="col-lg-12 col-sm-12">Danh sách kho hàng</h3>
@@ -64,10 +64,19 @@ class Repository extends Component {
         <div className="col-lg-12 col-sm-12">
           <div className="table-responsive">
             <ReponsitoryTable
-              searchKeyword={this.state.searchKeyword}
-              repositories={repositories}
+              // searchKeyword={this.state.searchKeyword}
+              repositories={this.state.pageOfItems}
             />
           </div>
+        </div>
+        <div
+          className="col-lg-12 col-sm-12 text-center"
+          style={{ marginBottom: "10px" }}
+        >
+          <Pagination
+            items={this.state.repositories}
+            onChangePage={this.onChangePage}
+          />
         </div>
       </div>
     );

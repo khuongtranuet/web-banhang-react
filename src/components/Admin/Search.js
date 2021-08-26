@@ -12,7 +12,7 @@ class Search extends Component {
         name="keyword"
         id="keyword"
         placeholder="Nhập để tìm kiếm"
-        value={this.props.searchKeyword}
+        value={this.props.searchKeyword || ""}
         onChange={this.handleSearchChange}
       />
     );

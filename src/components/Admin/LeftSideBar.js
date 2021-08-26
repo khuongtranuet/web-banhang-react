@@ -115,14 +115,10 @@ class LeftSideBar extends Component {
                 <div id="customer" className="collapse">
                   <ul className="nav">
                     <li>
-                      <a href="/#" className="">
-                        Danh sách khách hàng
-                      </a>
+                      <Link to="/admin/customer">Danh sách khách hàng</Link>
                     </li>
                     <li>
-                      <a href="/#" className="">
-                        Thêm mới khách hàng
-                      </a>
+                      <Link to="/admin/customer/add">Thêm mới khách hàng</Link>
                     </li>
                   </ul>
                 </div>
@@ -164,9 +160,7 @@ class LeftSideBar extends Component {
                       <Link to="/admin/repository">Danh sách kho hàng</Link>
                     </li>
                     <li>
-                      <a href="/#" className="">
-                        Thêm mới kho hàng
-                      </a>
+                      <Link to="/admin/repository/add">Thêm mới kho hàng</Link>
                     </li>
                     <li>
                       <a href="/#" className="">
