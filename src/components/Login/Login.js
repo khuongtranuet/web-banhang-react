@@ -3,8 +3,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import querystring from "querystring";
+import CallAPI from "../../utils/CallAPI";
+import Alerts from "../Alert/Alerts";
+import { alertOn } from "../../actions/index";
+import { useDispatch } from "react-redux";
 
-function Login() {
+function Login(props) {
+  const dispatch = useDispatch();
   const validationSchema = Yup.object().shape({
     mobile: Yup.string().required("Chưa nhập thông tin đăng nhập!"),
     password: Yup.string()
@@ -21,11 +27,28 @@ function Login() {
   });
 
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data, null, 2));
+    CallAPI("customer/login", "POST", querystring.stringify(data), null).then(
+      (res) => {
+        // console.log(res);
+        if (typeof res != "undefined") {
+          if (res.status === 200) {
+            // dispatch(alertOn());
+            localStorage.setItem("access-token", res.data.token);
+            localStorage.setItem("user-name", res.data.data.fullname);
+            props.history.push("/");
+          }
+        } else {
+          dispatch(alertOn());
+        }
+      }
+    );
   };
 
   return (
     <div className="register-form">
+      <div className="col-lg-12 alert-login">
+        <Alerts content={"Sai tài khoản hoặc mật khẩu"} type={"error"} />
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className="register">
         <h3>Đăng nhập</h3>
         <span></span>

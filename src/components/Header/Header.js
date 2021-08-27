@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import banner from "../../images/banner.png";
 import logo from "../../images/logo.png";
 import Badge from "@material-ui/core/Badge";
@@ -15,6 +15,13 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 class Header extends Component {
+  handleLogout = () => {
+    if (window.confirm("Bạn có chắc chắn muốn đăng xuất ?")) {
+      localStorage.removeItem("access-token");
+      localStorage.removeItem("user-name");
+      <Redirect to="/" />;
+    }
+  };
   render() {
     return (
       <>
@@ -132,7 +139,11 @@ class Header extends Component {
                         className="col-lg-9"
                         style={{ float: "right", marginTop: "5px" }}
                       >
-                        <span>Tài khoản </span>
+                        <span>
+                          {localStorage.getItem("user-name")
+                            ? localStorage.getItem("user-name")
+                            : "Tài khoản "}
+                        </span>
                         <span className="caret" />
                       </div>
 
@@ -147,8 +158,8 @@ class Header extends Component {
                         <Link to="/register">Tạo tài khoản</Link>
                       </li>
                       <li role="separator" className="divider" />
-                      <li>
-                        <a href="/#">Thoát</a>
+                      <li onClick={this.handleLogout}>
+                        <Link to="/">Thoát</Link>
                       </li>
                     </ul>
                     {/* </li> */}

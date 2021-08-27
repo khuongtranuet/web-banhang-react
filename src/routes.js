@@ -27,7 +27,7 @@ const routes = [
   {
     path: "/login",
     exact: false,
-    main: () => <LoginPage />,
+    main: ({ history }) => <LoginPage history={history} />,
   },
   {
     path: "/register",

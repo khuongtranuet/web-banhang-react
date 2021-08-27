@@ -1,10 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import querystring from "querystring";
+import CallAPI from "../../utils/CallAPI";
+import Alerts from "../Alert/Alerts";
+import { alertOn } from "../../actions/index";
 
 function Register() {
+  const dispatch = useDispatch();
   const validationSchema = Yup.object().shape({
     fullname: Yup.string().required("Trường này không được để trống!"),
     mobile: Yup.string().required("Trường này không được để trống!"),
@@ -29,11 +35,27 @@ function Register() {
   });
 
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data, null, 2));
+    // console.log(data);
+    CallAPI(
+      "customer/register",
+      "POST",
+      querystring.stringify(data),
+      null
+    ).then((res) => {
+      // console.log(res);
+      if (typeof res != "undefined") {
+        if (res.status === 201) {
+          dispatch(alertOn());
+        }
+      }
+    });
   };
 
   return (
     <div className="register-form">
+      <div className="col-lg-12 alert-login">
+        <Alerts content={"Đăng ký thành công"} type={"success"} />
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className="register">
         <h3>Tạo tài khoản</h3>
         <span></span>
