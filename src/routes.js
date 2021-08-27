@@ -7,7 +7,9 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import RepositoryPage from "./pages/AdminPage/repository/RepositoryPage";
 import AdminHomePage from "./pages/AdminPage/AdminHomePage";
-import CategoryList from "./components/Admin/category/CategoryList";
+import CategoryPage from "./pages/AdminPage/category/CategoryPage";
+import CategoryAddPage from "./pages/AdminPage/category/CategoryAddPage";
+import ProductAddPage from "./pages/AdminPage/product/ProductAddPage";
 
 const routes = [
   {
@@ -54,14 +56,19 @@ const routesAdmin = [
     main: () => <AdminHomePage />,
   },
   {
-    path: "/admin/category",
-    exact: false,
-    main: () => <CategoryList/>,
+    path: "/admin/category/add",
+    exact: true,
+    main: ({history}) => <CategoryAddPage history={history}/>,
+  },
+  {
+    path: "/admin/product/add",
+    exact: true,
+    main: ({history}) => <ProductAddPage history={history}/>,
   },
   {
     path: "/admin/category",
     exact: false,
-    main: () => <CategoryList/>,
+    main: () => <CategoryPage/>,
   },
   {
     path: "/admin/:something",
