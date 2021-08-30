@@ -57,7 +57,7 @@ class ProductAdd extends Component {
     }
 
     attributeIdChange = (e, index) => {
-        this.state.EAV[index].attributeId = e.target.value;
+        this.state.EAV[index].attributeId = e;
         this.setState({
             EAV: this.state.EAV
         })
@@ -160,15 +160,7 @@ class ProductAdd extends Component {
                         <div className="form-group">
                             <label className="control-label col-lg-2" htmlFor="name">Thông số sản phẩm:</label>
                             <div className="col-lg-9">
-                                <div
-                                    style={{
-                                        border: '1px solid black',
-                                        maxHeight: 220,
-                                        minHeight: '100px',
-                                        width: '895px',
-                                        overflow: "auto"
-                                    }}
-                                    className="info">
+                                <div>
                                     {
                                         this.state.EAV.map((attr, index) => {
                                             return (
@@ -178,8 +170,11 @@ class ProductAdd extends Component {
                                                             options={this.state.attributeId}
                                                             name="attribute"
                                                             search="true"
+                                                            emptyMessage="Không có thông số sản phẩm"
                                                             onChange={(e) => this.attributeIdChange(e,index)}
-                                                            placeholder="Thông số sản phẩm" />
+                                                            placeholder="Thông số sản phẩm"
+                                                            // renderValue={(valueProps) => <input {...this.state.attributeId} />}
+                                                        />
                                                     </div>
                                                     <div className="col-lg-5">
                                                         <input
